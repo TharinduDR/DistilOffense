@@ -1,1 +1,1 @@
-# GeneralOffense
+# DistilOffense: Transformers Teaching Offenseive Language to Small Neural Models
