@@ -7,6 +7,7 @@ from datasets import Dataset
 from datasets import load_dataset
 from deepoffense.classification import ClassificationModel
 from examples.common.print_stat import print_information
+from scipy.special import softmax
 from sklearn.model_selection import train_test_split
 
 from evaluation import macro_f1, weighted_f1
@@ -49,7 +50,13 @@ print_information(olid_test, "predictions", "Class")
 
 solid_predictions, solid_raw_outputs = model.predict(solid_sentences)
 
-solid["bert_predictions"] = solid_raw_outputs.tolist()
+probability_predictions = []
+
+for output in solid_raw_outputs:
+    weights = softmax(output)
+    probability_predictions.append(weights)
+
+solid["bert_predictions"] = probability_predictions
 prediction_file = solid[["id", "bert_predictions"]].copy()
 solid.to_csv(os.path.join(TEMP_DIRECTORY, RESULT_FILE),  header=True, sep='\t', index=False, encoding='utf-8')
 
