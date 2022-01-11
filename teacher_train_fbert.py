@@ -12,7 +12,7 @@ from sklearn.model_selection import train_test_split
 
 from evaluation import macro_f1, weighted_f1
 from label_converter import encode, decode
-from teacher_config_bert import MODEL_TYPE, MODEL_NAME, args, TEMP_DIRECTORY, RESULT_FILE
+from teacher_config_fbert import MODEL_TYPE, MODEL_NAME, args, TEMP_DIRECTORY, RESULT_FILE
 
 if not os.path.exists(TEMP_DIRECTORY):
     os.makedirs(TEMP_DIRECTORY)
