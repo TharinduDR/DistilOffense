@@ -14,6 +14,12 @@ from evaluation import macro_f1, weighted_f1
 from label_converter import encode, decode
 from teacher_config_bert import MODEL_TYPE, MODEL_NAME, args, TEMP_DIRECTORY, RESULT_FILE
 
+
+def chunks(lst, n):
+    """Yield successive n-sized chunks from lst."""
+    for i in range(0, len(lst), n):
+        yield lst[i:i + n]
+
 if not os.path.exists(TEMP_DIRECTORY):
     os.makedirs(TEMP_DIRECTORY)
 
@@ -22,7 +28,7 @@ olid_test = pd.read_csv('data/olid_test.csv', sep="\t")
 solid = Dataset.to_pandas(load_dataset('tharindu/SOLID', split='train', sep="\t"))
 
 olid_test_sentences = olid_test["Text"].to_list()
-solid_sentences = solid["text"].to_list()
+solid_sentences = solid["text"].to_list().head(100)
 
 
 train = pd.concat([olid_train], ignore_index=True)
@@ -48,13 +54,15 @@ olid_test['predictions'] = decode(olid_test['predictions'])
 
 print_information(olid_test, "predictions", "Class")
 
-solid_predictions, solid_raw_outputs = model.predict(solid_sentences)
-
 probability_predictions = []
-
-for output in solid_raw_outputs:
-    weights = softmax(output)
-    probability_predictions.append(weights)
+test_batches = chunks(solid_sentences, 4)
+for index, break_list in enumerate(test_batches):
+    temp_solid_predictions, temp_solid_raw_outputs = model.predict(break_list)
+    temp_probability_predictions = []
+    for output in temp_solid_raw_outputs:
+        weights = softmax(output)
+        temp_probability_predictions.append(weights)
+    probability_predictions.extend(temp_probability_predictions)
 
 solid["bert_predictions"] = probability_predictions
 prediction_file = solid[["id", "bert_predictions"]].copy()
