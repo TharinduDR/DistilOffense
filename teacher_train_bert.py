@@ -13,8 +13,8 @@ from evaluation import macro_f1, weighted_f1
 from label_converter import encode, decode
 from teacher_config_bert import MODEL_TYPE, MODEL_NAME, args, TEMP_DIRECTORY, RESULT_FILE
 
-if not os.path.exists(os.path.join(TEMP_DIRECTORY, RESULT_FILE)):
-    os.makedirs(os.path.join(TEMP_DIRECTORY, RESULT_FILE))
+if not os.path.exists(TEMP_DIRECTORY):
+    os.makedirs(TEMP_DIRECTORY)
 
 olid_train = pd.read_csv('data/olid_train.csv', sep="\t")
 olid_test = pd.read_csv('data/olid_test.csv', sep="\t")
