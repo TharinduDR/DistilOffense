@@ -4,7 +4,7 @@ TEMP_DIRECTORY = "temp/data"
 
 MODEL_TYPE = "bert"
 MODEL_NAME = "bert-large-cased"
-
+RESULT_FILE = "bert_result.csv"
 
 args = {
     'output_dir': 'temp/outputs/',
