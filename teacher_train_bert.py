@@ -58,5 +58,5 @@ for output in solid_raw_outputs:
 
 solid["bert_predictions"] = probability_predictions
 prediction_file = solid[["id", "bert_predictions"]].copy()
-solid.to_csv(os.path.join(TEMP_DIRECTORY, RESULT_FILE),  header=True, sep='\t', index=False, encoding='utf-8')
+prediction_file.to_csv(os.path.join(TEMP_DIRECTORY, RESULT_FILE),  header=True, sep='\t', index=False, encoding='utf-8')
 
