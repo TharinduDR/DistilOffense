@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 
 from evaluation import macro_f1, weighted_f1
 from label_converter import encode, decode
-from teacher_config import MODEL_TYPE, MODEL_NAME, args, TEMP_DIRECTORY, RESULT_FILE
+from teacher_config_bert import MODEL_TYPE, MODEL_NAME, args, TEMP_DIRECTORY, RESULT_FILE
 
 olid_train = pd.read_csv('data/olid_train.csv', sep="\t")
 olid_test = pd.read_csv('data/olid_test.csv', sep="\t")
