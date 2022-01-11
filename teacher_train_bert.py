@@ -46,7 +46,7 @@ print_information(olid_test, "predictions", "Class")
 
 solid_predictions, solid_raw_outputs = model.predict(solid_sentences)
 
-solid["bert_predictions"] = pd.Series(solid_raw_outputs)
+solid["bert_predictions"] = solid_raw_outputs.tolist()
 prediction_file = solid[["id", "bert_predictions"]].copy()
 solid.to_csv(os.path.join(TEMP_DIRECTORY, RESULT_FILE),  header=True, sep='\t', index=False, encoding='utf-8')
 
