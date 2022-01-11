@@ -1,22 +1,22 @@
 from multiprocessing import cpu_count
 
-TEMP_DIRECTORY = "temp_xlnet/data"
+TEMP_DIRECTORY = "temp/data"
 
-MODEL_TYPE = "xlnet"
-MODEL_NAME = "xlnet-large-cased"
-RESULT_FILE = "xlnet_result.csv"
+MODEL_TYPE = "bert"
+MODEL_NAME = "bert-large-cased"
+RESULT_FILE = "bert_result.csv"
 
 args = {
-    'output_dir': 'temp_xlnet/outputs/',
-    "best_model_dir": "temp_xlnet/outputs/best_model",
-    'cache_dir': 'temp_xlnet/cache_dir/',
+    'output_dir': 'temp/outputs/',
+    "best_model_dir": "temp/outputs/best_model",
+    'cache_dir': 'temp/cache_dir/',
 
     'fp16': False,
     'fp16_opt_level': 'O1',
     'max_seq_length': 256,  # 128
     'train_batch_size': 16,
     'gradient_accumulation_steps': 1,
-    'eval_batch_size': 512,
+    'eval_batch_size': 256,
     'num_train_epochs': 6,
     'weight_decay': 0,
     'learning_rate': 1e-5,

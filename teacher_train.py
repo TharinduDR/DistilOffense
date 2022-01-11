@@ -15,7 +15,7 @@ from teacher_config import MODEL_TYPE, MODEL_NAME, args, TEMP_DIRECTORY, RESULT_
 
 olid_train = pd.read_csv('data/olid_train.csv', sep="\t")
 olid_test = pd.read_csv('data/olid_test.csv', sep="\t")
-solid = Dataset.to_pandas(load_dataset('tharindu/SOLID', split='train', sep="\t"))
+solid = Dataset.to_pandas(load_dataset('tharindu/SOLID', split='train', sep="\t")).head(100)
 
 olid_test_sentences = olid_test["Text"].to_list()
 solid_sentences = solid["text"].to_list()
@@ -46,7 +46,7 @@ print_information(olid_test, "predictions", "Class")
 
 solid_predictions, solid_raw_outputs = model.predict(solid_sentences)
 
-solid["xlnet_predictions"] = solid_raw_outputs
-prediction_file = solid[["id", "xlnet_predictions"]].copy()
+solid["bert_predictions"] = solid_raw_outputs
+prediction_file = solid[["id", "bert_predictions"]].copy()
 solid.to_csv(os.path.join(TEMP_DIRECTORY, RESULT_FILE),  header=True, sep='\t', index=False, encoding='utf-8')
 
