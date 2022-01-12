@@ -1,6 +1,6 @@
 from multiprocessing import cpu_count
 
-TEMP_DIRECTORY = "temp/data"
+TEMP_DIRECTORY = "temp_xlnet/data"
 
 MODEL_TYPE = "xlnet"
 MODEL_NAME = "xlnet-large-cased"
