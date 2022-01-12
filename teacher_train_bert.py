@@ -25,7 +25,7 @@ if not os.path.exists(TEMP_DIRECTORY):
 
 olid_train = pd.read_csv('data/olid_train.csv', sep="\t")
 olid_test = pd.read_csv('data/olid_test.csv', sep="\t")
-solid = Dataset.to_pandas(load_dataset('tharindu/SOLID', split='train', sep="\t"))
+solid = Dataset.to_pandas(load_dataset('tharindu/SOLID', split='train', sep="\t")).head(1000)
 
 olid_test_sentences = olid_test["Text"].to_list()
 solid_sentences = solid["text"].to_list()
