@@ -15,17 +15,16 @@ from label_converter import encode, decode
 from teacher_config_bert import MODEL_TYPE, MODEL_NAME, args, TEMP_DIRECTORY, RESULT_FILE
 
 
-def chunks(lst, n):
-    """Yield successive n-sized chunks from lst."""
-    for i in range(0, len(lst), n):
-        yield lst[i:i + n]
+def split(a, n):
+    k, m = divmod(len(a), n)
+    return (a[i*k+min(i, m):(i+1)*k+min(i+1, m)] for i in range(n))
 
 if not os.path.exists(TEMP_DIRECTORY):
     os.makedirs(TEMP_DIRECTORY)
 
 olid_train = pd.read_csv('data/olid_train.csv', sep="\t")
 olid_test = pd.read_csv('data/olid_test.csv', sep="\t")
-solid = Dataset.to_pandas(load_dataset('tharindu/SOLID', split='train', sep="\t"))
+solid = Dataset.to_pandas(load_dataset('tharindu/SOLID', split='train', sep="\t")).head(1000)
 
 olid_test_sentences = olid_test["Text"].to_list()
 solid_sentences = solid["text"].to_list()
@@ -55,7 +54,7 @@ olid_test['predictions'] = decode(olid_test['predictions'])
 print_information(olid_test, "predictions", "Class")
 
 probability_predictions = []
-test_batches = chunks(solid_sentences, len(solid_sentences)/4)
+test_batches = split(solid_sentences, 4)
 for index, break_list in enumerate(test_batches):
     print("Length of the break lists", len(break_list))
     temp_solid_predictions, temp_solid_raw_outputs = model.predict(break_list)
