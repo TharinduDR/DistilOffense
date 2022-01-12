@@ -25,7 +25,7 @@ if not os.path.exists(TEMP_DIRECTORY):
 
 olid_train = pd.read_csv('data/olid_train.csv', sep="\t")
 olid_test = pd.read_csv('data/olid_test.csv', sep="\t")
-solid = Dataset.to_pandas(load_dataset('tharindu/SOLID', split='train', sep="\t")).head(1000)
+solid = Dataset.to_pandas(load_dataset('tharindu/SOLID', split='train', sep="\t"))
 
 olid_test_sentences = olid_test["Text"].to_list()
 solid_sentences = solid["text"].to_list()
@@ -55,7 +55,7 @@ olid_test['predictions'] = decode(olid_test['predictions'])
 print_information(olid_test, "predictions", "Class")
 
 probability_predictions = []
-test_batches = chunks(solid_sentences, 4)
+test_batches = chunks(solid_sentences, len(solid_sentences)/4)
 for index, break_list in enumerate(test_batches):
     print("Length of the break lists", len(break_list))
     temp_solid_predictions, temp_solid_raw_outputs = model.predict(break_list)
