@@ -12,8 +12,7 @@ from sklearn.model_selection import train_test_split
 
 from evaluation import macro_f1, weighted_f1
 from label_converter import encode, decode
-from teacher_config_bert import MODEL_TYPE, MODEL_NAME, args, TEMP_DIRECTORY, RESULT_FILE
-
+from teacher_config_xlnet import MODEL_TYPE, MODEL_NAME, args, TEMP_DIRECTORY, RESULT_FILE
 
 def split(a, n):
     k, m = divmod(len(a), n)
@@ -64,7 +63,6 @@ for index, break_list in enumerate(test_batches):
         temp_probability_predictions.append(weights)
     probability_predictions.extend(temp_probability_predictions)
 
-solid["bert_predictions"] = probability_predictions
-prediction_file = solid[["id", "bert_predictions"]].copy()
+solid["xlnet_predictions"] = probability_predictions
+prediction_file = solid[["id", "xlnet_predictions"]].copy()
 prediction_file.to_csv(os.path.join(TEMP_DIRECTORY, RESULT_FILE),  header=True, sep='\t', index=False, encoding='utf-8')
-
